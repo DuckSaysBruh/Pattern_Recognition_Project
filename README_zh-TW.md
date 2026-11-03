@@ -135,8 +135,8 @@ Pattern_Recognition_Project/
 
 ### 所有成員須遵守的共同規則
 
-1. **實作完成後必須移除 `error('TODO...')` 守衛** — 這行程式碼是阻止 `main_train` 執行的原因。
-2. **分類器必須設定 `model.param_count`**（整數）— 流程膠水函式會讀取此欄位來回報參數量。
+1. **實作完成後必須移除 `error('TODO...')` ** — 這行程式碼是用於阻止 `main_train` 執行。
+2. **分類器必須設定 `model.param_count`**（整數）— 膠水程式碼會讀取此欄位來回報參數量。
 3. **`bayes_predict` 與 `mlp_predict` 的 `scores` 輸出必須為 P(y=1) ∈ [0,1]**，不能只輸出硬標籤 0/1 — `cross_validate` 與 `compute_roc` 需要實數分數才能建立 ROC 曲線。
 
 ---
@@ -199,7 +199,7 @@ Pattern_Recognition_Project/
 
 ## 模組介面規範
 
-所有流程函式必須遵循以下簽名：
+所有流程函式須遵循以下模板：
 
 ```matlab
 % pipeline_fn(X_train, y_train, X_test) → (y_pred, scores, info)
@@ -217,7 +217,7 @@ Pattern_Recognition_Project/
 ```
 
 分類器必須回傳包含以下欄位的 **model struct**：
-- `model.param_count` — 由流程膠水函式讀取以回報參數量
+- `model.param_count` — 由膠水程式碼讀取以回報參數量
 
 ---
 
@@ -226,7 +226,7 @@ Pattern_Recognition_Project/
 | 里程碑 | 日期 |
 |---|---|
 | 組員名單繳交 | 9 月 29 日 |
-| 口頭報告 + 現場展示 | **12 月 15 日** |
+| 口頭報告 + demo | **12 月 15 日** |
 | 書面報告繳交 | **12 月 22 日** |
 
 ---
@@ -239,8 +239,4 @@ Pattern_Recognition_Project/
 | 書面報告 | 30% |
 | 測試集 AUC | 10% |
 
----
 
-## 聯絡資訊
-
-助教信箱：cvrlab308@gmail.com
