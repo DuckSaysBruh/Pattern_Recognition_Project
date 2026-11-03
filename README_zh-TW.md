@@ -5,6 +5,24 @@
 
 ---
 
+## 工作分配
+
+M1 ~ M8代表了各成員，並且目前不得更動角色所屬範圍以外的文件
+各成員必須在其欄位中填入自己名字以便劃分職責及計算分數
+
+| 成員 | 角色 | 負責檔案 |
+|---|---|---|
+| **M1 William Hsieh** | 專案負責人 / 資料管線 / 整合 | `main_train.m`、`main_test.m`、`data/`、`pipelines/` |
+| **M2** | PCA 專責 | `dim_reduction/pca_train.m`、`dim_reduction/pca_project.m` |
+| **M3** | LDA 專責 | `dim_reduction/lda_train.m`、`dim_reduction/lda_project.m` |
+| **M4** | 貝氏分類器 | `classifiers/bayes_train.m`、`classifiers/bayes_predict.m` |
+| **M5** | MLP 分類器 | `classifiers/mlp_train.m`、`classifiers/mlp_predict.m` |
+| **M6** | 評估框架 | `evaluation/cross_validate.m`、`evaluation/compute_roc.m`、`evaluation/plot_roc.m`、`evaluation/compute_auc.m`、`evaluation/compute_accuracy.m` |
+| **M7** | 實驗與分析 | 執行實驗、調整超參數、撰寫報告第三章 |
+| **M8** | 報告與簡報負責人 | 投影片、中正大學論文格式報告、現場展示協調 |
+
+---
+
 ## 環境需求
 
 | 需求項目 | 說明 |
@@ -108,21 +126,6 @@ Pattern_Recognition_Project/
 
 每種流程皆以 **5-fold 交叉驗證** 評估，回報項目：
 正確率 · AUC · 特徵維度 · 參數量 · 訓練時間 · 每樣本推論時間
-
----
-
-## 工作分配
-
-| 成員 | 角色 | 負責檔案 |
-|---|---|---|
-| **M1** | 專案負責人 / 資料管線 / 整合 | `main_train.m`、`main_test.m`、`data/`、`pipelines/` |
-| **M2** | PCA 專責 | `dim_reduction/pca_train.m`、`dim_reduction/pca_project.m` |
-| **M3** | LDA 專責 | `dim_reduction/lda_train.m`、`dim_reduction/lda_project.m` |
-| **M4** | 貝氏分類器 | `classifiers/bayes_train.m`、`classifiers/bayes_predict.m` |
-| **M5** | MLP 分類器 | `classifiers/mlp_train.m`、`classifiers/mlp_predict.m` |
-| **M6** | 評估框架 | `evaluation/cross_validate.m`、`evaluation/compute_roc.m`、`evaluation/plot_roc.m`、`evaluation/compute_auc.m`、`evaluation/compute_accuracy.m` |
-| **M7** | 實驗與分析 | 執行實驗、調整超參數、撰寫報告第三章 |
-| **M8** | 報告與簡報負責人 | 投影片、中正大學論文格式報告、現場展示協調 |
 
 ---
 
