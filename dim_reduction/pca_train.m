@@ -55,8 +55,8 @@ function pca_model = pca_train(X, n_dims)
     %     M   = (X_c * X_c') / (N - 1);   % [N × N]
     %     [U, Lam] = eig(M);
     %     V   = X_c' * U;                  % recover D-dim eigenvectors
-    %     % Normalise each column of V to unit length:
-    %     V   = V ./ vecnorm(V, 2, 1);
+    %     % Normalise each column of V to unit length (R2016b-compatible):
+    %     V   = V ./ sqrt(sum(V.^2, 1));   % do NOT use vecnorm — requires R2017b+
     %
     % Step 4 – Sort by descending eigenvalue
     %   lam       = diag(Lam);

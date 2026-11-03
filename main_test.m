@@ -28,6 +28,12 @@ MLP_LR     = 0.01;
 MLP_EPOCHS = 200;
 
 %% ── Step 1: Load Data ────────────────────────────────────────────────────────
+if ~exist(TEST_DATA_PATH, 'dir')
+    error(['main_test: test folder "%s" not found.\n' ...
+           'Place the test dataset images there first, then re-run.'], ...
+          TEST_DATA_PATH);
+end
+
 fprintf('Loading training data...\n');
 [X_train, y_train]        = load_data(TRAIN_DATA_PATH, IMG_SIZE);
 [X_train, mu, sigma]      = normalize_data(X_train);

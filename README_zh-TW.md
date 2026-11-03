@@ -7,8 +7,8 @@
 
 ## 工作分配
 
-M1 ~ M8代表了各成員，並且目前不得更動角色所屬範圍以外的文件。
-各成員必須在其欄位中填入自己名字以便劃分職責及計算分數。
+M1 ~ M8 代表各成員，**不得更動自身職責範圍以外的檔案**。  
+新增姓名方式：開啟 `README.md`（或 `README_zh-TW.md`），找到自己的欄位，將 `**Mn**` 改為 `**Mn 姓名**`，並以訊息 `docs: add name for Mn` 提交。
 
 | 成員 | 角色 | 負責檔案 |
 |---|---|---|
@@ -18,8 +18,25 @@ M1 ~ M8代表了各成員，並且目前不得更動角色所屬範圍以外的�
 | **M4** | 貝氏分類器 | `classifiers/bayes_train.m`、`classifiers/bayes_predict.m` |
 | **M5** | MLP 分類器 | `classifiers/mlp_train.m`、`classifiers/mlp_predict.m` |
 | **M6** | 評估框架 | `evaluation/cross_validate.m`、`evaluation/compute_roc.m`、`evaluation/plot_roc.m`、`evaluation/compute_auc.m`、`evaluation/compute_accuracy.m` |
-| **M7** | 實驗與分析 | 執行實驗、調整超參數、撰寫報告第三章 |
-| **M8** | 報告與簡報負責人 | 投影片、中正大學論文格式報告、現場展示協調 |
+| **M7** | 實驗與分析 | 無骨架檔案 — 自行建立 `experiments/run_experiments.m`，以不同超參數呼叫 `main_train` 並收集結果供報告第三章使用 |
+| **M8** | 報告與簡報負責人 | 無 MATLAB 檔案 — 製作中正大學格式報告（`.docx`/`.pdf`）、簡報，並協調現場展示彩排 |
+
+---
+
+## 快速開始
+
+### 1 — 複製儲存庫
+```bash
+git clone https://github.com/DuckSaysBruh/Pattern_Recognition_Project.git
+cd Pattern_Recognition_Project
+```
+或至 GitHub 下載 ZIP：**Code → Download ZIP**。
+
+### 2 — 設定 MATLAB
+1. 開啟 MATLAB（R2016b 或更新版本）。
+2. 在 **Current Folder** 面板中切換至 `Pattern_Recognition_Project/` 資料夾 — **這是必要步驟**，因為 `main_train` 使用 `addpath(genpath(pwd))`，路徑是相對於 MATLAB 目前工作資料夾，而非腳本的位置。
+3. 將 `train/` 影像資料夾放入專案根目錄（200 張 PNG，未納入 git）。
+4. *(僅 `main_test` 需要)* 測試資料集釋出後，將 `test/` 資料夾放入根目錄。
 
 ---
 
@@ -93,13 +110,17 @@ Pattern_Recognition_Project/
 │   ├── cv_results.mat
 │   └── test_results.mat
 │
-├── train/                    （訓練資料集 — 200 張 PNG）
-└── test/                     （測試資料集 — 100 張 PNG，需另行取得）
+├── experiments/              （M7 — 在此建立 run_experiments.m）
+│
+├── train/                    （訓練資料集 — 200 張 PNG，未納入 git）
+└── test/                     （測試資料集 — 100 張 PNG，未納入 git；釋出後請放至此處）
 ```
 
 ---
 
 ## 執行方式
+
+> **執行前提：** MATLAB 的 **Current Folder** 必須設定為專案根目錄（`Pattern_Recognition_Project/`）。從其他目錄執行會導致 `Undefined function` 錯誤，因為 `addpath(genpath(pwd))` 是相對於目前工作資料夾新增路徑。
 
 ### 訓練 + 交叉驗證
 ```matlab
@@ -107,11 +128,15 @@ Pattern_Recognition_Project/
 ```
 輸出四種方法的正確率、AUC、特徵維度、參數量與時間。儲存 `results/roc_cv.png` 和 `results/cv_results.mat`。
 
+> **前置條件：** M2–M6 必須全部移除各自的 `error('TODO...')` 那一行，此程式才能完整執行。
+
 ### 最終測試集評估
 ```matlab
 >> main_test
 ```
 以完整訓練集訓練後評估 `test/` 資料夾。儲存 `results/roc_test.png` 和 `results/test_results.mat`。
+
+> **前置條件：** 專案根目錄必須存在 `test/` 資料夾。若資料夾不存在，`main_test` 會印出清楚的錯誤訊息。
 
 ---
 
@@ -133,14 +158,21 @@ Pattern_Recognition_Project/
 
 > **程式語言：MATLAB**（R2016b 或更新版本）
 
-每個骨架檔案都已將完整演算法寫成注解形式的虛擬碼。
-完成方式：**取消注解對應的程式碼區塊，並刪除 `error('TODO...')` 那一行。**
+每個骨架檔案都已將完整演算法寫成**注解形式的虛擬碼** — 每行虛擬碼都以 `% `（百分號加空格，MATLAB 的注解字元）開頭。
+
+**完成步驟：**
+1. 以 MATLAB 或文字編輯器開啟你的 `.m` 檔案。
+2. 找到函式內的 `% ── TODO:` 區塊。
+3. **移除每行虛擬碼開頭的 `% `（百分號加空格）**，即可啟用該程式碼。
+4. 刪除區塊底部的 `error('TODO...')` 那一行。
+5. 將 MATLAB Current Folder 設為專案根目錄後，執行 `main_train` 測試。
 
 ### 所有成員須遵守的共同規則
 
-1. **實作完成後必須移除 `error('TODO...')` ** — 這行程式碼是用於阻止 `main_train` 執行。
-2. **分類器必須設定 `model.param_count`**（整數）— 膠水程式碼會讀取此欄位來回報參數量。
-3. **`bayes_predict` 與 `mlp_predict` 的 `scores` 輸出必須為 P(y=1) ∈ [0,1]**，不能只輸出硬標籤 0/1 — `cross_validate` 與 `compute_roc` 需要實數分數才能建立 ROC 曲線。
+1. **只能編輯自己職責範圍內的檔案。** `pipelines/` 中的流程檔案屬於 M1 — 請勿更動。若發現介面有問題，請告知 M1。
+2. **實作完成後必須移除 `error('TODO...')`** — 這行程式碼是用於阻止 `main_train` 完整執行。
+3. **分類器（M4、M5）必須在回傳的 model struct 中設定 `model.param_count`**（整數）— 膠水程式碼會讀取此欄位來回報參數量。
+4. **`bayes_predict` 與 `mlp_predict` 的 `scores` 輸出必須為 P(y=1) ∈ [0,1]**（實數值，非只有 0/1）— `cross_validate` 與 `compute_roc` 需要連續機率分數才能建立 ROC 曲線。
 
 ---
 
@@ -148,8 +180,8 @@ Pattern_Recognition_Project/
 
 負責檔案：`pca_train.m`、`pca_project.m`
 
-- 取消各檔案中已提供的虛擬碼注解。
-- 在 `pca_train` 中使用**緊湊技巧**：對 `X*X'`（200×200）進行特徵分解，而非對 `X'*X`（4096×4096），因為 D >> N。
+- 移除兩個檔案中每行虛擬碼開頭的 `% `，再刪除 `error(...)`。
+- 在 `pca_train` 中使用**緊湊技巧**：對 `X_c * X_c'`（200×200）進行特徵分解，而非對 `X_c' * X_c`（4096×4096），因為 D >> N。取得 N 維特徵向量 `U` 後，以 `V = X_c' * U` 還原 D 維向量，再正規化：`V = V ./ sqrt(sum(V.^2, 1));` — **請勿使用 `vecnorm`**，該函式需要 R2017b，在 R2016b 會發生錯誤。
 - `pca_project` 只需兩行：減去 `mean_vec`，再乘以 `W`。
 
 ---
@@ -158,10 +190,10 @@ Pattern_Recognition_Project/
 
 負責檔案：`lda_train.m`、`lda_project.m`
 
-- 取消各檔案中已提供的虛擬碼注解。
-- 二元分類 → LDA 恰好產生 **1** 個判別方向（K−1 = 1）。
-- **不可跳過 S_W 的正則化那一行**（`S_W + 1e-6 * trace(S_W)/D * eye(D)`）— 沒有它，S_W 會是奇異矩陣，`eig` 將會失敗。
-- `lda_project` 只需一行：`X * W`。
+- 移除兩個檔案中每行虛擬碼開頭的 `% `，再刪除 `error(...)`。
+- 二元分類 → LDA 恰好產生 **1** 個判別方向（K−1 = 1）；`lda_model.W` 為 `[D × 1]`。
+- **不可跳過 S_W 的正則化那一行**（`S_W = S_W + 1e-6 * trace(S_W)/D * eye(D)`）— D=4096 且訓練樣本僅約 160 筆，S_W 是秩不足矩陣；缺少正則化時 `eig(S_B, S_W)` 將回傳 `Inf`/`NaN`。若加入正則化後結果仍含 `Inf`/`NaN`，請將係數從 `1e-6` 調大至 `1e-3`。
+- `lda_project` 只需一行：`X_red = X * lda_model.W;`
 
 ---
 
@@ -169,7 +201,7 @@ Pattern_Recognition_Project/
 
 負責檔案：`bayes_train.m`、`bayes_predict.m`
 
-- 取消兩個檔案中已提供的虛擬碼注解。
+- 移除兩個檔案中每行虛擬碼開頭的 `% `，再刪除 `error(...)`。
 - 在 `bayes_train` 中，回傳前需設定 `model.param_count = K * (D + D^2) + K`。
 - 在 `bayes_predict` 中，`scores` 輸出必須是透過對數後驗 Softmax 計算出的**類別 1 的後驗機率**（注解中已說明數值穩定的位移指數技巧）。
 
@@ -179,8 +211,8 @@ Pattern_Recognition_Project/
 
 負責檔案：`mlp_train.m`、`mlp_predict.m`
 
-- 完整的反向傳播方程式已在 `mlp_train.m` 的注解中提供 — 直接實作即可。
-- `mlp_train.m` 底部的 `sigmoid_fn` 與 `sigmoid_grad_fn` 已完成，可直接呼叫。
+- 移除兩個檔案中每行虛擬碼開頭的 `% `，再刪除 `error(...)`。
+- `mlp_train.m` 底部的 `sigmoid_fn` 與 `sigmoid_grad_fn` 已完整實作 — 直接在訓練迴圈中呼叫即可。
 - 回傳模型前需設定 `model.param_count = D*H + H + H + 1`。
 - `mlp_predict` 只需 4 行前向傳播，再以 0.5 作為閾值。
 
@@ -195,7 +227,7 @@ Pattern_Recognition_Project/
 1. **`compute_accuracy`** — 一行：`mean(y_pred(:) == y_true(:))`
 2. **`compute_auc`** — 兩行：依 FPR 排序，再執行 `trapz(fpr, tpr)`
 3. **`compute_roc`** — 閾值掃描迴圈（已提供虛擬碼）
-4. **`cross_validate`** — 協調所有元件；對 k 個 fold 的指標取平均，並將 ROC 曲線插值至共同 FPR 網格（已提供虛擬碼）
+4. **`cross_validate`** — 協調所有元件；對 k 個 fold 的指標取平均，並以 `interp1` 將 ROC 曲線插值至共同 FPR 網格（已提供虛擬碼）。請使用 `cvpartition(y, 'KFold', k)` 進行分層切割 — 可確保每個 fold 的類別分佈平衡，優於單純使用 `randperm`。
 5. **`plot_roc`** — 選用輔助函式；`main_train.m` 已有內嵌繪圖，但實作此函式可使程式更模組化
 
 ---
@@ -221,6 +253,8 @@ Pattern_Recognition_Project/
 
 分類器必須回傳包含以下欄位的 **model struct**：
 - `model.param_count` — 由膠水程式碼讀取以回報參數量
+
+> **成員 2–5** 只需實作各自負責的模組函式，**請勿**更動 `pipelines/` 中的任何檔案 — 那些是 M1 的負責範圍。若發現介面有問題，請告知 M1，由 M1 修正。
 
 ---
 

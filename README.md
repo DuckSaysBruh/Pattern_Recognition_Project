@@ -6,8 +6,8 @@ A MATLAB-based face image gender recognition system that compares four classific
 ---
 ## Work Distribution
 
-M1 ~ M8 represents each members, and are currently not allowed to modify files not included under each member.
-Members are required to insert their name in their corresponding role in order to recognize contributions for grading.
+M1 ~ M8 represents each member and are **not allowed to modify files outside their own assignment**.  
+To add your name: open `README.md`, find your row, replace `**Mn**` with `**Mn Your Name**`, and commit with message `docs: add name for Mn`.
 
 | Member | Role | Files Owned |
 |---|---|---|
@@ -17,8 +17,25 @@ Members are required to insert their name in their corresponding role in order t
 | **M4** | Bayes Classifier | `classifiers/bayes_train.m`, `classifiers/bayes_predict.m` |
 | **M5** | MLP Classifier | `classifiers/mlp_train.m`, `classifiers/mlp_predict.m` |
 | **M6** | Evaluation Framework | `evaluation/cross_validate.m`, `evaluation/compute_roc.m`, `evaluation/plot_roc.m`, `evaluation/compute_auc.m`, `evaluation/compute_accuracy.m` |
-| **M7** | Experiments & Analysis | Runs experiments, tunes hyperparameters, writes Chapter 3 of report |
-| **M8** | Report & Presentation Lead | Slides, CCU thesis report, live demo coordination |
+| **M7** | Experiments & Analysis | No skeleton file — create `experiments/run_experiments.m` that calls `main_train` with varied hyperparameters and collects results for Chapter 3 of the report |
+| **M8** | Report & Presentation Lead | No MATLAB files — produce the CCU-format report (`.docx`/`.pdf`), presentation slides, and coordinate the live demo rehearsal |
+
+---
+
+## Getting Started
+
+### 1 — Clone the repository
+```bash
+git clone https://github.com/DuckSaysBruh/Pattern_Recognition_Project.git
+cd Pattern_Recognition_Project
+```
+Or download the ZIP from GitHub → **Code → Download ZIP**.
+
+### 2 — Set up MATLAB
+1. Open MATLAB (R2016b or later).
+2. In the **Current Folder** panel, navigate to `Pattern_Recognition_Project/` — **this is required** because `main_train` calls `addpath(genpath(pwd))`, which adds all subfolders relative to MATLAB's Current Folder, not the script's location.
+3. Place the `train/` image folder inside the project root (200 PNG files — not committed to git).
+4. *(For `main_test` only)* Place the `test/` folder once the test dataset is released.
 
 ---
 
@@ -93,12 +110,17 @@ Pattern_Recognition_Project/
 │   └── test_results.mat
 │
 ├── train/                    (training dataset — 200 PNG images)
-└── test/                     (test dataset — 100 PNG images, add when available)
+├── experiments/              (M7 — create run_experiments.m here)
+│
+├── train/                    (training dataset — 200 PNG images, NOT in git)
+└── test/                     (test dataset — 100 PNG images, NOT in git; place here when released)
 ```
 
 ---
 
 ## How to Run
+
+> **Before running:** MATLAB's **Current Folder** must be set to the project root (`Pattern_Recognition_Project/`). Running from any other directory will cause `Undefined function` errors because `addpath(genpath(pwd))` adds paths relative to wherever the Current Folder is set.
 
 ### Training + Cross-Validation
 ```matlab
@@ -106,11 +128,15 @@ Pattern_Recognition_Project/
 ```
 Outputs accuracy, AUC, feature dim, parameter count, and timing for all four methods. Saves `results/roc_cv.png` and `results/cv_results.mat`.
 
+> **Prerequisite:** M2–M6 must all have removed their `error('TODO...')` line before this runs end-to-end.
+
 ### Final Test Evaluation
 ```matlab
 >> main_test
 ```
 Trains on the full training set and evaluates on the `test/` folder. Saves `results/roc_test.png` and `results/test_results.mat`.
+
+> **Prerequisite:** `test/` folder must exist in the project root. `main_test` will print a clear error message if it is missing.
 
 ---
 
@@ -132,14 +158,21 @@ accuracy · AUC · feature dimensionality · parameter count · training time ·
 
 > **Language: MATLAB** (R2016b or later)
 
-Each skeleton file contains the complete algorithm as commented-out pseudocode.
-To complete your task: **uncomment the provided code block and delete the `error('TODO...')` line.**
+Each skeleton file contains the complete algorithm as **commented-out pseudocode** — every pseudocode line starts with `% ` (MATLAB's comment character followed by a space).
+
+**To complete your task:**
+1. Open your `.m` file in MATLAB or any text editor.
+2. Find the `% ── TODO:` block inside the function body.
+3. **Remove the `% ` prefix (percent sign + space) from the start of each pseudocode line** to activate the code.
+4. Delete the `error('TODO...')` line at the bottom of the block.
+5. Set MATLAB's Current Folder to the project root, then run `main_train` to test.
 
 ### Shared rules all members must follow
 
-1. **Remove the `error('TODO...')` guard** when your implementation is ready — it is what prevents `main_train` from running.
-2. **Classifiers must set `model.param_count`** (integer) — the pipeline glue code reads this field to report parameter counts.
-3. **`bayes_predict` and `mlp_predict` must return `scores` as P(y=1) ∈ [0,1]**, not just hard 0/1 labels — `cross_validate` and `compute_roc` depend on real-valued scores to build the ROC curve.
+1. **Only edit files listed under your name.** The pipeline files in `pipelines/` belong to M1 — do not modify them. If you spot a bug in the interface, report it to M1.
+2. **Remove the `error('TODO...')` guard** when your implementation is ready — it is what prevents `main_train` from running end-to-end.
+3. **Classifiers (M4, M5) must set `model.param_count`** (integer) on the returned model struct — the pipeline glue code reads this field to report parameter counts.
+4. **`bayes_predict` and `mlp_predict` must return `scores` as P(y=1) ∈ [0,1]** (real-valued, not just 0/1) — `cross_validate` and `compute_roc` need continuous probability scores to build the ROC curve.
 
 ---
 
@@ -147,9 +180,9 @@ To complete your task: **uncomment the provided code block and delete the `error
 
 Files: `pca_train.m`, `pca_project.m`
 
-- Uncomment the pseudocode already in each file.
-- Use the **compact trick** in `pca_train`: eigen-decompose `X*X'` (200×200) instead of `X'*X` (4096×4096) since D >> N.
-- `pca_project` is a two-liner: subtract `mean_vec`, multiply by `W`.
+- Remove the `% ` prefix from each pseudocode line in both files, then delete `error(...)`.
+- In `pca_train`, use the **compact trick**: eigen-decompose `X_c * X_c'` (200×200) instead of `X_c' * X_c` (4096×4096) since D >> N. After obtaining N-dimensional eigenvectors `U`, recover D-dimensional vectors with `V = X_c' * U`, then normalise: `V = V ./ sqrt(sum(V.^2, 1));` — **do not use `vecnorm`**, it requires R2017b and will error on R2016b.
+- `pca_project` is two lines: subtract `mean_vec`, then multiply by `W`.
 
 ---
 
@@ -157,10 +190,10 @@ Files: `pca_train.m`, `pca_project.m`
 
 Files: `lda_train.m`, `lda_project.m`
 
-- Uncomment the pseudocode already in each file.
-- Binary classification → LDA produces exactly **1** discriminant direction (K−1 = 1).
-- **Do not skip the regularisation line** for S_W (`S_W + 1e-6 * trace(S_W)/D * eye(D)`) — without it S_W will be singular and `eig` will fail.
-- `lda_project` is a one-liner: `X * W`.
+- Remove the `% ` prefix from each pseudocode line in both files, then delete `error(...)`.
+- Binary classification → LDA produces exactly **1** discriminant direction (K−1 = 1); `lda_model.W` will be `[D × 1]`.
+- **Do not skip the regularisation line** (`S_W = S_W + 1e-6 * trace(S_W)/D * eye(D)`) — with D=4096 and ~160 training samples, S_W is rank-deficient; without regularisation, `eig(S_B, S_W)` returns `Inf`/`NaN`. If you still see `Inf`/`NaN` results after adding regularisation, increase the coefficient from `1e-6` to `1e-3`.
+- `lda_project` is one line: `X_red = X * lda_model.W;`
 
 ---
 
@@ -168,7 +201,7 @@ Files: `lda_train.m`, `lda_project.m`
 
 Files: `bayes_train.m`, `bayes_predict.m`
 
-- Uncomment the pseudocode in both files.
+- Remove the `% ` prefix from each pseudocode line in both files, then delete `error(...)`.
 - In `bayes_train`, set `model.param_count = K * (D + D^2) + K` before returning.
 - In `bayes_predict`, the output `scores` must be the **posterior probability of class 1** computed via log-posterior softmax (the shifted-exp trick for numerical stability is shown in the comments).
 
@@ -178,8 +211,8 @@ Files: `bayes_train.m`, `bayes_predict.m`
 
 Files: `mlp_train.m`, `mlp_predict.m`
 
-- The full backpropagation equations are written as comments in `mlp_train.m` — implement them.
-- `sigmoid_fn` and `sigmoid_grad_fn` at the bottom of `mlp_train.m` are already complete; call them directly.
+- Remove the `% ` prefix from each pseudocode line in both files, then delete `error(...)`.
+- `sigmoid_fn` and `sigmoid_grad_fn` at the bottom of `mlp_train.m` are already fully implemented — call them directly inside the training loop.
 - Set `model.param_count = D*H + H + H + 1` before returning the model.
 - `mlp_predict` is a 4-line forward pass followed by a threshold at 0.5.
 
@@ -194,7 +227,7 @@ Implement in this order (each builds on the previous):
 1. **`compute_accuracy`** — one line: `mean(y_pred(:) == y_true(:))`
 2. **`compute_auc`** — two lines: sort by FPR, then `trapz(fpr, tpr)`
 3. **`compute_roc`** — threshold sweep loop (pseudocode provided)
-4. **`cross_validate`** — coordinates everything; averages metrics across k folds and interpolates ROC curves to a common FPR grid (pseudocode provided)
+4. **`cross_validate`** — coordinates everything; averages metrics across k folds and interpolates ROC curves to a common FPR grid using `interp1` (pseudocode provided). Use `cvpartition(y, 'KFold', k)` for stratified splits — this guarantees balanced class counts per fold, unlike plain `randperm`.
 5. **`plot_roc`** — optional helper; `main_train.m` already has inline plotting, but implement this for cleaner modular use
 
 ---
@@ -220,6 +253,8 @@ All pipeline functions must follow this signature:
 
 Classifiers must return a **model struct** that includes:
 - `model.param_count` — used by pipeline glue code to report parameter count
+
+> **Members 2–5** implement only their individual module functions. Do **not** modify anything in `pipelines/` — those are M1's files. If you find an interface bug, report it to M1 rather than editing the pipeline file yourself.
 
 ---
 
