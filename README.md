@@ -7,7 +7,7 @@ A MATLAB-based face image gender recognition system that compares four classific
 ## Work Distribution
 
 M1 ~ M8 represents each member and are **not allowed to modify files outside their own assignment**.  
-Members are required to insert their name in their corresponding role in order to recognize contributions for grading.
+Members are required to insert their name in their corresponding role in order to recognize **contributions for grading**.
 To add your name: open `README.md`, find your row, replace `**Mn**` with `**Mn Your Name**`, and commit with message `docs: add name for Mn`.
 
 | Member | Role | Files Owned |
