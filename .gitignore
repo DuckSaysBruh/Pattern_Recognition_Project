@@ -1,0 +1,21 @@
+# MATLAB temporary files
+*.asv
+*.m~
+*.mex*
+*.slxc
+octave-workspace
+
+# Generated results (re-created by running main_train / main_test)
+results/*.png
+results/*.mat
+results/*.csv
+results/*.txt
+results/*.fig
+
+# Keep the results folder itself
+!results/.gitkeep
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
