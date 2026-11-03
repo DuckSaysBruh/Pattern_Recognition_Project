@@ -4,6 +4,23 @@
 A MATLAB-based face image gender recognition system that compares four classification pipelines combining PCA/LDA dimensionality reduction with Bayes/MLP classifiers.
 
 ---
+## Work Distribution
+
+M1 ~ M8 represents each members, and are currently not allowed to modify files not included under each member.
+Members are required to insert their name in their corresponding role in order to recognize contributions for grading.
+
+| Member | Role | Files Owned |
+|---|---|---|
+| **M1 William Hsieh** | Project Lead / Data Pipeline / Integration | `main_train.m`, `main_test.m`, `data/`, `pipelines/` |
+| **M2** | PCA Specialist | `dim_reduction/pca_train.m`, `dim_reduction/pca_project.m` |
+| **M3** | LDA Specialist | `dim_reduction/lda_train.m`, `dim_reduction/lda_project.m` |
+| **M4** | Bayes Classifier | `classifiers/bayes_train.m`, `classifiers/bayes_predict.m` |
+| **M5** | MLP Classifier | `classifiers/mlp_train.m`, `classifiers/mlp_predict.m` |
+| **M6** | Evaluation Framework | `evaluation/cross_validate.m`, `evaluation/compute_roc.m`, `evaluation/plot_roc.m`, `evaluation/compute_auc.m`, `evaluation/compute_accuracy.m` |
+| **M7** | Experiments & Analysis | Runs experiments, tunes hyperparameters, writes Chapter 3 of report |
+| **M8** | Report & Presentation Lead | Slides, CCU thesis report, live demo coordination |
+
+---
 
 ## Requirements
 
@@ -108,21 +125,6 @@ Trains on the full training set and evaluates on the `test/` folder. Saves `resu
 
 Each pipeline is evaluated with **5-fold cross-validation** reporting:
 accuracy · AUC · feature dimensionality · parameter count · training time · inference time per sample
-
----
-
-## Work Distribution
-
-| Member | Role | Files Owned |
-|---|---|---|
-| **M1** | Project Lead / Data Pipeline / Integration | `main_train.m`, `main_test.m`, `data/`, `pipelines/` |
-| **M2** | PCA Specialist | `dim_reduction/pca_train.m`, `dim_reduction/pca_project.m` |
-| **M3** | LDA Specialist | `dim_reduction/lda_train.m`, `dim_reduction/lda_project.m` |
-| **M4** | Bayes Classifier | `classifiers/bayes_train.m`, `classifiers/bayes_predict.m` |
-| **M5** | MLP Classifier | `classifiers/mlp_train.m`, `classifiers/mlp_predict.m` |
-| **M6** | Evaluation Framework | `evaluation/cross_validate.m`, `evaluation/compute_roc.m`, `evaluation/plot_roc.m`, `evaluation/compute_auc.m`, `evaluation/compute_accuracy.m` |
-| **M7** | Experiments & Analysis | Runs experiments, tunes hyperparameters, writes Chapter 3 of report |
-| **M8** | Report & Presentation Lead | Slides, CCU thesis report, live demo coordination |
 
 ---
 
