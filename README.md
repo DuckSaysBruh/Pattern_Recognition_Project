@@ -241,6 +241,3 @@ Classifiers must return a **model struct** that includes:
 
 ---
 
-## Contact
-
-Teaching Assistant: cvrlab308@gmail.com
