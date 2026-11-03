@@ -126,6 +126,77 @@ accuracy · AUC · feature dimensionality · parameter count · training time ·
 
 ---
 
+## Implementation Rules for Members 2–6
+
+> **Language: MATLAB** (R2016b or later)
+
+Each skeleton file contains the complete algorithm as commented-out pseudocode.
+To complete your task: **uncomment the provided code block and delete the `error('TODO...')` line.**
+
+### Shared rules all members must follow
+
+1. **Remove the `error('TODO...')` guard** when your implementation is ready — it is what prevents `main_train` from running.
+2. **Classifiers must set `model.param_count`** (integer) — the pipeline glue code reads this field to report parameter counts.
+3. **`bayes_predict` and `mlp_predict` must return `scores` as P(y=1) ∈ [0,1]**, not just hard 0/1 labels — `cross_validate` and `compute_roc` depend on real-valued scores to build the ROC curve.
+
+---
+
+### Member 2 — PCA (`dim_reduction/`)
+
+Files: `pca_train.m`, `pca_project.m`
+
+- Uncomment the pseudocode already in each file.
+- Use the **compact trick** in `pca_train`: eigen-decompose `X*X'` (200×200) instead of `X'*X` (4096×4096) since D >> N.
+- `pca_project` is a two-liner: subtract `mean_vec`, multiply by `W`.
+
+---
+
+### Member 3 — LDA (`dim_reduction/`)
+
+Files: `lda_train.m`, `lda_project.m`
+
+- Uncomment the pseudocode already in each file.
+- Binary classification → LDA produces exactly **1** discriminant direction (K−1 = 1).
+- **Do not skip the regularisation line** for S_W (`S_W + 1e-6 * trace(S_W)/D * eye(D)`) — without it S_W will be singular and `eig` will fail.
+- `lda_project` is a one-liner: `X * W`.
+
+---
+
+### Member 4 — Bayes Classifier (`classifiers/`)
+
+Files: `bayes_train.m`, `bayes_predict.m`
+
+- Uncomment the pseudocode in both files.
+- In `bayes_train`, set `model.param_count = K * (D + D^2) + K` before returning.
+- In `bayes_predict`, the output `scores` must be the **posterior probability of class 1** computed via log-posterior softmax (the shifted-exp trick for numerical stability is shown in the comments).
+
+---
+
+### Member 5 — MLP (`classifiers/`)
+
+Files: `mlp_train.m`, `mlp_predict.m`
+
+- The full backpropagation equations are written as comments in `mlp_train.m` — implement them.
+- `sigmoid_fn` and `sigmoid_grad_fn` at the bottom of `mlp_train.m` are already complete; call them directly.
+- Set `model.param_count = D*H + H + H + 1` before returning the model.
+- `mlp_predict` is a 4-line forward pass followed by a threshold at 0.5.
+
+---
+
+### Member 6 — Evaluation (`evaluation/`)
+
+Files: `compute_accuracy.m`, `compute_auc.m`, `compute_roc.m`, `cross_validate.m`, `plot_roc.m`
+
+Implement in this order (each builds on the previous):
+
+1. **`compute_accuracy`** — one line: `mean(y_pred(:) == y_true(:))`
+2. **`compute_auc`** — two lines: sort by FPR, then `trapz(fpr, tpr)`
+3. **`compute_roc`** — threshold sweep loop (pseudocode provided)
+4. **`cross_validate`** — coordinates everything; averages metrics across k folds and interpolates ROC curves to a common FPR grid (pseudocode provided)
+5. **`plot_roc`** — optional helper; `main_train.m` already has inline plotting, but implement this for cleaner modular use
+
+---
+
 ## Module Interface Contract
 
 All pipeline functions must follow this signature:
