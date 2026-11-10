@@ -17,8 +17,8 @@ To add your name: open `README.md`, find your row, replace `**Mn**` with `**Mn Y
 | **M3** | LDA Specialist | `dim_reduction/lda_train.m`, `dim_reduction/lda_project.m` |
 | **M4** | Bayes Classifier | `classifiers/bayes_train.m`, `classifiers/bayes_predict.m` |
 | **M5** | MLP Classifier | `classifiers/mlp_train.m`, `classifiers/mlp_predict.m` |
-| **M6** | Evaluation Framework | `evaluation/cross_validate.m`, `evaluation/compute_roc.m`, `evaluation/plot_roc.m`, `evaluation/compute_auc.m`, `evaluation/compute_accuracy.m` |
-| **M7** | Experiments & Analysis | No skeleton file — create `experiments/run_experiments.m` that calls `main_train` with varied hyperparameters and collects results for Chapter 3 of the report |
+| **M6 Chandana Virupaksha** | Evaluation Framework | `evaluation/cross_validate.m`, `evaluation/compute_roc.m`, `evaluation/plot_roc.m`, `evaluation/compute_auc.m`, `evaluation/compute_accuracy.m` |
+| **M7 Naisha E Shelke** | Experiments & Analysis | No skeleton file — create `experiments/run_experiments.m` that calls `main_train` with varied hyperparameters and collects results for Chapter 3 of the report |
 | **M8** | Report & Presentation Lead | No MATLAB files — produce the CCU-format report (`.docx`/`.pdf`), presentation slides, and coordinate the live demo rehearsal |
 
 ---
