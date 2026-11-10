@@ -17,8 +17,8 @@ M1 ~ M8 代表各成員，**不得更動自身職責範圍以外的檔案**。  
 | **M3** | LDA 專責 | `dim_reduction/lda_train.m`、`dim_reduction/lda_project.m` |
 | **M4** | 貝氏分類器 | `classifiers/bayes_train.m`、`classifiers/bayes_predict.m` |
 | **M5** | MLP 分類器 | `classifiers/mlp_train.m`、`classifiers/mlp_predict.m` |
-| **M6** | 評估框架 | `evaluation/cross_validate.m`、`evaluation/compute_roc.m`、`evaluation/plot_roc.m`、`evaluation/compute_auc.m`、`evaluation/compute_accuracy.m` |
-| **M7** | 實驗與分析 | 無骨架檔案 — 自行建立 `experiments/run_experiments.m`，以不同超參數呼叫 `main_train` 並收集結果供報告第三章使用 |
+| **M6 Chandana Virupaksha** | 評估框架 | `evaluation/cross_validate.m`、`evaluation/compute_roc.m`、`evaluation/plot_roc.m`、`evaluation/compute_auc.m`、`evaluation/compute_accuracy.m` |
+| **M7 Naisha E Shelke** | 實驗與分析 | 無骨架檔案 — 自行建立 `experiments/run_experiments.m`，以不同超參數呼叫 `main_train` 並收集結果供報告第三章使用 |
 | **M8** | 報告與簡報負責人 | 無 MATLAB 檔案 — 製作中正大學格式報告（`.docx`/`.pdf`）、簡報，並協調現場展示彩排 |
 
 ---
