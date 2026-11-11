@@ -13,7 +13,7 @@ To add your name: open `README.md`, find your row, replace `**Mn**` with `**Mn Y
 | Member | Role | Files Owned |
 |---|---|---|
 | **M1 William Hsieh** | Project Lead / Data Pipeline / Integration | `main_train.m`, `main_test.m`, `data/`, `pipelines/` |
-| **M2** | PCA Specialist | `dim_reduction/pca_train.m`, `dim_reduction/pca_project.m` |
+| **M2 Ming-Jin (Jim) Hsieh** | PCA Specialist | `dim_reduction/pca_train.m`, `dim_reduction/pca_project.m` |
 | **M3** | LDA Specialist | `dim_reduction/lda_train.m`, `dim_reduction/lda_project.m` |
 | **M4湯鈞凱** | Bayes Classifier | `classifiers/bayes_train.m`, `classifiers/bayes_predict.m` |
 | **M5** | MLP Classifier | `classifiers/mlp_train.m`, `classifiers/mlp_predict.m` |
