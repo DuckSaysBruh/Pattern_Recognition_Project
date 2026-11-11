@@ -13,7 +13,7 @@ M1 ~ M8 代表各成員，**不得更動自身職責範圍以外的檔案**。  
 | 成員 | 角色 | 負責檔案 |
 |---|---|---|
 | **M1 William Hsieh** | 專案負責人 / 資料管線 / 整合 | `main_train.m`、`main_test.m`、`data/`、`pipelines/` |
-| **M2** | PCA 專責 | `dim_reduction/pca_train.m`、`dim_reduction/pca_project.m` |
+| **M2 Ming-Jin (Jim) Hsieh** | PCA 專責 | `dim_reduction/pca_train.m`、`dim_reduction/pca_project.m` |
 | **M3 吳崧瑀** | LDA 專責 | `dim_reduction/lda_train.m`、`dim_reduction/lda_project.m` |
 | **M4 湯鈞凱** | 貝氏分類器 | `classifiers/bayes_train.m`、`classifiers/bayes_predict.m` |
 | **M5** | MLP 分類器 | `classifiers/mlp_train.m`、`classifiers/mlp_predict.m` |
