@@ -14,7 +14,7 @@ To add your name: open `README.md`, find your row, replace `**Mn**` with `**Mn Y
 |---|---|---|
 | **M1 William Hsieh** | Project Lead / Data Pipeline / Integration | `main_train.m`, `main_test.m`, `data/`, `pipelines/` |
 | **M2** | PCA Specialist | `dim_reduction/pca_train.m`, `dim_reduction/pca_project.m` |
-| **M3** | LDA Specialist | `dim_reduction/lda_train.m`, `dim_reduction/lda_project.m` |
+| **M3 吳崧瑀** | LDA Specialist | `dim_reduction/lda_train.m`, `dim_reduction/lda_project.m` |
 | **M4湯鈞凱** | Bayes Classifier | `classifiers/bayes_train.m`, `classifiers/bayes_predict.m` |
 | **M5** | MLP Classifier | `classifiers/mlp_train.m`, `classifiers/mlp_predict.m` |
 | **M6 Chandana Virupaksha** | Evaluation Framework | `evaluation/cross_validate.m`, `evaluation/compute_roc.m`, `evaluation/plot_roc.m`, `evaluation/compute_auc.m`, `evaluation/compute_accuracy.m` |
