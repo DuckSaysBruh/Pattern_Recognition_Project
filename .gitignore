@@ -1,0 +1,6 @@
+train/
+test/
+results/
+*.asv
+*.mex*
+.DS_Store
