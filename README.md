@@ -13,7 +13,7 @@ The member listing below follows the original project README. Module scopes have
 |---|---|---|
 | M1 William Hsieh | Project Lead / Data Pipeline / Integration | Entry points, configuration, `data/`, `pipelines/` |
 | M2 Ming-Jin (Jim) Hsieh | PCA Specialist | `dim_reduction/pca_train.m`, `dim_reduction/pca_project.m` |
-| M3 | LDA Specialist | `dim_reduction/lda_train.m`, `dim_reduction/lda_project.m` |
+| M3 吳崧瑀 | LDA Specialist | `dim_reduction/lda_train.m`, `dim_reduction/lda_project.m` |
 | M4 湯鈞凱 | Bayes Classifier | `classifiers/bayes_train.m`, `classifiers/bayes_predict.m` |
 | M5 | MLP Classifier | `classifiers/mlp_train.m`, `classifiers/mlp_predict.m` |
 | M6 Chandana Virupaksha | Evaluation Framework | `evaluation/` |

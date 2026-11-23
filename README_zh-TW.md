@@ -13,7 +13,7 @@
 |---|---|---|
 | M1 William Hsieh | 專案負責人／資料管線／整合 | 主程式、設定、`data/`、`pipelines/` |
 | M2 Ming-Jin (Jim) Hsieh | PCA 專責 | `dim_reduction/pca_train.m`、`dim_reduction/pca_project.m` |
-| M3 | LDA 專責 | `dim_reduction/lda_train.m`、`dim_reduction/lda_project.m` |
+| M3 吳崧瑀 | LDA 專責 | `dim_reduction/lda_train.m`、`dim_reduction/lda_project.m` |
 | M4 湯鈞凱 | Bayes 分類器 | `classifiers/bayes_train.m`、`classifiers/bayes_predict.m` |
 | M5 | MLP 分類器 | `classifiers/mlp_train.m`、`classifiers/mlp_predict.m` |
 | M6 Chandana Virupaksha | 評估框架 | `evaluation/` |
