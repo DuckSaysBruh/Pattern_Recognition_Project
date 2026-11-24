@@ -2,6 +2,9 @@ function model=lda_train(X,y,cfg)
 % Binary ridge Fisher LDA, solved in sample space via Woodbury.
 % Sw=R'*R (within-class covariance); w=(Sw+lambda*I)\delta.
 % No D-by-D arrays and no preceding PCA.
+% lambda = ridge_relative * trace(Sw)/rank(Sw), rank(Sw) = min(D, N-2): the ridge
+% is relative to the mean NONZERO eigenvalue of Sw, so the same ridge_relative
+% works at any image resolution (trace/D shrinks as D grows when D >> N).
 [N,D]=size(X); assert(isequal(unique(y),[0;1]),'Binary labels required.');
 assert(N>2,'Too few samples.');
 model.mean_vec=mean(X,1); R=X;
@@ -11,7 +14,7 @@ for c=0:1
     R(ix,:)=bsxfun(@minus,X(ix,:),means(c+1,:));
 end
 R=R/sqrt(N-2);
-scale=sum(R(:).^2)/D;
+scale=sum(R(:).^2)/min(D,N-2);
 lambda=max(cfg.ridge_absolute,cfg.ridge_relative*scale);
 assert(lambda>0,'LDA ridge must be positive.');
 delta=(means(2,:)-means(1,:))';

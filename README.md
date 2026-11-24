@@ -247,7 +247,7 @@ Edit `config_project.m` to change shared settings. Method selection is handled b
 | Pixel normalization | Training-only z-score |
 | PCA dimensions | `20` |
 | PCA relative rank tolerance | `1e-10` |
-| LDA relative / absolute ridge | `1e-3` / `1e-10` |
+| LDA relative / absolute ridge | `0.1` / `1e-10` |
 | Bayes absolute ridge | `1e-5` |
 | MLP hidden units | `64` |
 | MLP learning rate | `0.01` |
@@ -301,10 +301,11 @@ All methods within a run share the same folds. Across runs, keep dataset orderin
 
 ```matlab
 w = (Sw + lambda * I) \ (mu1 - mu0);
-lambda = max(ridge_absolute, ridge_relative * trace(Sw) / D);
+lambda = max(ridge_absolute, ridge_relative * trace(Sw) / min(D, N-2));
 ```
 
 - Never constructs the 409,600 × 409,600 scatter matrix.
+- The ridge is relative to the mean nonzero eigenvalue of `Sw` (`rank(Sw) = min(D, N-2)`), so the tuned value `ridge_relative = 0.1` does not depend on image resolution. Person-grouped 5×5-fold CV on the training set: validation d′ 10.60 → 10.81 vs the old `1e-3 · trace/D`; accuracy/AUC are 100% / 1.000 for both.
 - Does not introduce a preceding PCA stage. Regularization is part of the method and must be described in the report.
 
 ### Bayes — `classifiers/`
