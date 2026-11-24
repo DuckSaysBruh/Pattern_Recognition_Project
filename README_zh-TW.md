@@ -247,7 +247,7 @@ runDir = main_train(cfg);
 | 像素標準化 | 僅以訓練部分估計的 z-score |
 | PCA 維度 | `20` |
 | PCA 相對秩門檻 | `1e-10` |
-| LDA 相對／絕對 ridge | `1e-3`／`1e-10` |
+| LDA 相對／絕對 ridge | `0.1`／`1e-10` |
 | Bayes 絕對 ridge | `1e-5` |
 | MLP 隱藏層寬度 | `64` |
 | MLP learning rate | `0.01` |
@@ -301,10 +301,11 @@ runDir = main_train(cfg);
 
 ```matlab
 w = (Sw + lambda * I) \ (mu1 - mu0);
-lambda = max(ridge_absolute, ridge_relative * trace(Sw) / D);
+lambda = max(ridge_absolute, ridge_relative * trace(Sw) / min(D, N-2));
 ```
 
 - 不建立 409,600 × 409,600 散佈矩陣。
+- ridge 相對於 `Sw` 非零特徵值的平均（`rank(Sw) = min(D, N-2)`），因此選定的 `ridge_relative = 0.1` 與影像解析度無關。訓練集按人分組 5×5-fold CV：驗證集 d′ 由舊設定（`1e-3 · trace/D`）的 10.60 提升到 10.81；兩者準確率／AUC 皆為 100%／1.000。
 - 沒有前置 PCA；正則化是方法定義的一部分，報告需說明。
 
 ### Bayes — `classifiers/`
